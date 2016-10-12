@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="7.19.css">
+	<script src="../../学习/function/function.js"></script>
+</head>
+<script>
+	window.onload=function(){
+		var lit=getclass("lit")[0].getElementsByTagName('li');
+		var imgs=getclass("imgs")[0].getElementsByTagName('li');
+        var box=getclass("box")[0];
+        var left=getclass("left")[0];
+        var right=getclass("right")[0];
+        var t=setInterval(move,1000);
+        var n=0;
+        for(var i=0;i<lit.length;i++){
+        	lit[i].index=i;
+        	lit[i].onmouseover=function(){
+        		for(var i=0;i<lit.length;i++){
+        			lit[i].style.color="#000";
+        			imgs[i].style.display="none"
+        		}
+        		this.style.color="red";
+        		imgs[this.index].style.display="block";
+        		n=this.index;
+        	}
+        }
+        function move(a){
+        	a=a||"r";
+        	if(a=="r"){
+        		n++;
+	            if(n>lit.length-1){
+	            	n=0;
+	            }
+        	}
+	        if(a=="l"){
+	        	n--;
+	        	if(n<0){
+	        		n=lit.length-1;
+	        	}
+	        }   
+            for(var i=0;i<lit.length;i++){
+            	lit[i].style.color="#000";
+            	imgs[i].style.display="none"
+            }
+            lit[n].style.color="red";
+            imgs[n].style.display="block";
+        }
+        box.onmouseover=function(){
+        	clearInterval(t);
+        	left.style.display="block";
+        	right.style.display="block";
+        }
+        box.onmouseout=function(){
+        	t=setInterval(move,1000);
+        	left.style.display="none";
+        	right.style.display="none";
+        }
+        right.onclick=function(){
+        	move("r");
+        }
+        left.onclick=function(){
+            move("l");
+        }
+	}
+</script>
+<body>
+	<div class="box">
+		<ul class="lit">
+			<li class="first">111</li>
+			<li>222</li>
+			<li>333</li>
+			<li>444</li>
+		</ul>
+		<ul class="imgs">
+			<li><img src="g3.jpg" alt=""></li>
+			<li><img src="g4.jpg" alt=""></li>
+			<li><img src="g5.jpg" alt=""></li>
+			<li><img src="g6.jpg" alt=""></li>			
+		</ul>
+		<div class="left"><</div>
+		<div class="right">></div>
+	</div>
+</body>
+</html>
